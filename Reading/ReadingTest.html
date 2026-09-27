@@ -43,7 +43,8 @@ body {
 
     justify-content:center;
 
-    height:100vh;
+    min-height:100vh;
+height:auto;
 
     transition:0.3s;
 
@@ -655,6 +656,8 @@ border:1px solid #ddd;
 
 padding:10px;
 
+font-size:9px;
+
 }
 
 .result-table th,
@@ -1238,7 +1241,7 @@ APP HEADER DESIGN 2
     line-height:1.8;
 
     color:#222;
-
+    
 }
 
 .detail-box *{
@@ -1459,6 +1462,71 @@ APP HEADER DESIGN 2
   opacity: 0.85;
 }
 
+/* =====================
+   Live Battle Ranking
+===================== */
+
+#battleRanking{
+
+position:fixed;
+
+top:15px;
+right:15px;
+
+width:180px;
+
+background:white;
+
+border-radius:15px;
+
+padding:15px;
+
+font-size:16px;
+
+font-weight:bold;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+
+z-index:9999;
+
+text-align:center;
+
+line-height:1.6;
+
+display:none;
+
+}
+
+
+@media(max-width:600px){
+
+#battleRanking{
+
+width:150px;
+
+font-size:14px;
+
+}
+
+}
+
+.pass{
+
+color:#00bcd4;
+
+font-weight:bold;
+
+}
+
+
+.fail{
+
+color:red;
+
+font-weight:bold;
+
+}
+
 </style>
 
 </head>
@@ -1481,8 +1549,8 @@ APP HEADER DESIGN 2
 请选择年级
 </option>
 
-<option value="Year 2">
-Year 2
+<option value="Year 1">
+Year 1
 </option>
 
 </select>
@@ -1558,10 +1626,13 @@ Year 2
 
 <div id="testScreen" style="display:none;">
 
+<div id="battleRanking">
+🔥 Reading Battle
+</div>
+
 <div class="card" id="word">
 开始
 </div>
-
 
 <div class="phrase-box">
 
@@ -1647,7 +1718,8 @@ import {
   where,
   orderBy,
   limit,
-  getDocs
+  getDocs,
+  onSnapshot
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
@@ -1673,6 +1745,7 @@ window.db = db;
 window.collection = collection;
 window.addDoc = addDoc;
 window.getDocs = getDocs;
+window.onSnapshot = onSnapshot;
 
 window.doc = doc;
 window.setDoc = setDoc;
@@ -1696,111 +1769,6 @@ const TEST_TYPE = "Reading";
 
 // 第2部分 JavaScript 会接这里
 const originalWords = [
-
-"五",
-  "人",
-  "从",
-  "先",
-  "四",
-  "对",
-  "将",
-  "开",
-  "才",
-  "把",
-  "最",
-  "看",
-  "站",
-  "答",
-  "红",
-  "绿",
-  "能",
-  "被",
-  "读",
-  "风",
-  "长方体",
-  "圆锥体",
-  "圆柱体",
-  "正方体",
-  "棱柱体",
-  "棱锥体",
-  "正方形",
-  "长方形",
-  "三角形",
-  "说一说",
-  "重要性",
-  "有什么",
-  "由什么",
-  "设计图",
-  "连一连",
-  "为什么",
-  "基本",
-  "形状",
-  "立体",
-  "学生",
-  "模型",
-  "建筑",
-  "球体",
-  "以下",
-  "物体",
-  "什么",
-  "活动",
-  "制作",
-  "说出",
-  "日期",
-  "练习",
-  "引导",
-  "各种",
-  "设计",
-  "空格",
-  "圆形",
-  "名称",
-  "组成",
-  "然后",
-  "写出",
-  "其他",
-  "作品",
-  "这些",
-  "改进",
-  "重要",
-  "怎样",
-  "画出",
-  "测试",
-  "容易",
-  "下图",
-  "显示",
-  "生活",
-  "找出",
-  "上图",
-  "软件",
-  "颜色",
-  "展示",
-  "指示",
-  "根据",
-  "使用",
-  "卡片",
-  "介绍",
-  "分享",
-  "改变",
-  "东西",
-  "变成",
-  "一个",
-  "数量",
-  "相同",
-  "例子",
-  "准备",
-  "虚线",
-  "打印",
-  "图画",
-  "折纸",
-  "鼓励",
-  "方法",
-  "图片",
-  "收集",
-  "发挥",
-  "机器",
-  "变形",
-  "用了",
-  "想象",
   "房子",
   "情况",
   "应用",
@@ -1815,120 +1783,19 @@ const originalWords = [
 
 const students = {
 
-"Year 2":[
-"Laynarose",
-        "Ong Zhi Cong",
-        "Madihah",
-	"Alston"
+"Year 1":[
+"Ryna",
+"Mikayla",
+"Eden",
+"Maxton",
+"Candy",
+"Shannon",
+"Jayden Liew"
 ]
 
 };
 
 const phrases = [
-"五个人",
-    "一个人",
-    "从前",
-    "我先",
-    "四个人",
-    "对了",
-    "将来",
-    "开门",
-    "才来",
-    "把门开",
-    "最好",
-    "看书",
-    "站起来",
-    "回答",
-    "红花",
-    "绿叶",
-    "能干",
-    "被看到",
-    "读书",
-    "风扇",
-    "长方体",
-    "圆锥体",
-    "圆柱体",
-    "正方体",
-    "棱柱体",
-    "棱锥体",
-    "正方形",
-    "长方形",
-    "三角形",
-    "说一说",
-    "很重要",
-    "有什么",
-    "由什么",
-    "设计图",
-    "连一连",
-    "为什么",
-    "基本形",
-    "形状",
-    "立体图",
-    "学生",
-    "做模型",
-    "建筑",
-    "球体",
-    "以下",
-    "物体",
-    "什么",
-    "活动",
-    "制作",
-    "说出",
-    "日期",
-    "练习",
-    "引导",
-    "各种",
-    "设计",
-    "空格",
-    "圆形",
-    "名称",
-    "组成",
-    "然后",
-    "写出",
-    "其他",
-    "作品",
-    "这些",
-    "改进",
-    "重要",
-    "怎样",
-    "画出",
-    "测试",
-    "容易",
-    "下图",
-    "显示",
-    "生活",
-    "找出",
-    "上图",
-    "软件",
-    "颜色",
-    "展示",
-    "指示牌",
-    "根据",
-    "使用",
-    "卡片",
-    "介绍",
-    "分享",
-    "改变",
-    "东西",
-    "变成",
-    "一个",
-    "数量",
-    "相同",
-    "例子",
-    "准备",
-    "虚线",
-    "打印",
-    "图画",
-    "折纸",
-    "鼓励",
-    "方法",
-    "图片",
-    "收集",
-    "发挥",
-    "机器",
-    "变形",
-    "用了",
-    "想象",
     "房子",
     "情况",
     "应用",
@@ -2051,6 +1918,8 @@ async function startStudentSession(){
 
   currentStudentGrade = grade;
 
+  await startBattle();
+
 
   // 隐藏登录画面
   document.getElementById("loginScreen").style.display = "none";
@@ -2059,6 +1928,12 @@ async function startStudentSession(){
   // 显示测试画面
   document.getElementById("testScreen").style.display = "block";
 
+document.getElementById(
+"battleRanking"
+).style.display="block";
+
+
+watchBattle();
 
 // 检查是否有之前保存的进度
 await loadProgress();
@@ -2068,6 +1943,217 @@ await loadProgress();
 // =======================
 // 读取学生之前的进度
 // =======================
+
+function watchBattle(){
+
+
+window.onSnapshot(
+
+window.collection(
+window.db,
+"liveBattle"
+),
+
+(snapshot)=>{
+
+
+let players=[];
+
+
+snapshot.forEach((doc)=>{
+
+let data = doc.data();
+
+if(data.status === "playing"){
+
+players.push(data);
+
+}
+
+});
+
+
+// 正确率高的排前面
+
+players.sort(
+(a,b)=>
+b.accuracy-a.accuracy
+);
+
+
+
+let html =
+"";
+
+
+
+players.forEach(
+(player,index)=>{
+
+
+let medal="";
+
+if(index===0){
+medal="🥇";
+}
+
+else if(index===1){
+medal="🥈";
+}
+
+else if(index===2){
+medal="🥉";
+}
+
+else{
+medal="";
+}
+
+
+
+html +=
+
+`
+${medal}
+${player.studentName}
+
+<br>
+
+${player.accuracy}%
+
+<br><br>
+
+`;
+
+
+
+});
+
+
+document.getElementById(
+"battleRanking"
+).innerHTML = html;
+
+
+}
+
+);
+
+
+}
+
+async function startBattle(){
+
+await window.setDoc(
+
+window.doc(
+window.db,
+"liveBattle",
+currentStudentName
+),
+
+{
+
+studentName:
+currentStudentName,
+
+correct:0,
+
+wrong:0,
+
+accuracy:0,
+
+status:"playing"
+
+}
+
+);
+
+}
+
+async function updateBattleFirebase(){
+
+
+let total =
+correct+wrong;
+
+
+let accuracy =
+total===0
+?
+0
+:
+Math.round(
+(correct/total)*100
+);
+
+
+
+await window.setDoc(
+
+window.doc(
+window.db,
+"liveBattle",
+currentStudentName
+),
+
+{
+
+studentName:
+currentStudentName,
+
+correct,
+
+wrong,
+
+accuracy,
+
+status:"playing"
+
+}
+
+);
+
+
+}
+
+// =======================
+// 离开页面自动退出 Battle
+// =======================
+
+window.addEventListener(
+"beforeunload",
+()=>{
+
+
+if(currentStudentName){
+
+
+window.setDoc(
+
+window.doc(
+window.db,
+"liveBattle",
+currentStudentName
+),
+
+{
+
+status:"finished"
+
+},
+
+{
+merge:true
+}
+
+);
+
+
+}
+
+
+});
 
 async function loadProgress(){
 
@@ -2429,6 +2515,8 @@ stopListening();
 
 wrong++;
 
+updateBattleFirebase();
+
 wrongWords.push(
 words[current]
 );
@@ -2517,12 +2605,15 @@ const specialFix = {
     "人锥体":"棱锥体",
     "能锥体":"棱锥体",
 
-    "指示牌":"指示",
+    "只是":"指示",
 
     "栗子":"例子",
     "粒子":"例子",
+    "荔枝":"例子",
 
-    "想像":"想象"
+    "想像":"想象",
+
+    "热漆":"日期"
 
 };
 
@@ -2552,8 +2643,16 @@ console.log(
     let similarity;
 
 
+// ⭐ 只要学生读出的内容包含题目，就算正确
+if(cleanText.includes(answer)){
+
+    similarity = 1;
+
+}
+
+
 // ⭐ 有什么 / 由什么 互相接受
-if(
+else if(
     (answer === "有什么" && fixedText === "由什么") ||
     (answer === "由什么" && fixedText === "有什么")
 ){
@@ -2631,6 +2730,8 @@ else{
 
         correct++;
 
+        updateBattleFirebase();
+
         testedWordsToday.push({
 
             word: words[current],
@@ -2692,17 +2793,6 @@ else{
             });
 
         }
-
-
-        wrong++;
-
-
-        if(!wrongWords.includes(currentWord)){
-
-            wrongWords.push(currentWord);
-
-        }
-
 
         document.body.className =
         "incorrect";
@@ -3484,6 +3574,25 @@ async function saveResult(){
 
   }
 
+  await window.setDoc(
+
+window.doc(
+window.db,
+"liveBattle",
+currentStudentName
+),
+
+{
+
+status:"finished"
+
+},
+
+{
+merge:true
+}
+
+);
 
   // 计算正确率
   const accuracy =
@@ -3670,7 +3779,8 @@ return;
 try{
 
 
-const snapshot =
+// 读取进度
+const progressSnapshot =
 await window.getDocs(
 
 window.collection(
@@ -3679,6 +3789,91 @@ window.db,
 )
 
 );
+
+
+// 读取成绩
+const resultSnapshot =
+await window.getDocs(
+
+window.collection(
+window.db,
+"testResults"
+)
+
+);
+
+
+// 建立成绩资料
+let resultMap = {};
+
+
+resultSnapshot.forEach((doc)=>{
+
+const data = doc.data();
+
+resultMap[data.studentName] = data;
+
+});
+
+
+
+// 合并资料
+
+let students = [];
+
+
+progressSnapshot.forEach((doc)=>{
+
+
+const data = doc.data();
+
+
+let result =
+resultMap[data.studentName] || {};
+
+
+
+students.push({
+
+id:doc.id,
+
+studentName:data.studentName,
+
+grade:data.grade,
+
+current:data.current || 0,
+
+totalWords:data.totalWords || 0,
+
+accuracy:result.accuracy || 0,
+
+updatedAt:data.updatedAt
+
+});
+
+
+});
+
+
+
+// 排序
+// 第一：完成题数
+// 第二：准确率
+
+students.sort((a,b)=>{
+
+
+if(b.totalWords !== a.totalWords){
+
+return b.totalWords - a.totalWords;
+
+}
+
+
+return b.accuracy - a.accuracy;
+
+
+});
 
 
 
@@ -3694,7 +3889,7 @@ let html = `
 
 <th>进度</th>
 
-<th>状态</th>
+<th>准确率</th>
 
 <th>保存时间</th>
 
@@ -3706,19 +3901,16 @@ let html = `
 
 
 
-snapshot.forEach((doc)=>{
 
-
-const data = doc.data();
-
+students.forEach((data)=>{
 
 
 let progress =
-(data.current || 0)
+data.current
 +
 "/"
 +
-(data.totalWords || 0);
+data.totalWords;
 
 
 
@@ -3733,7 +3925,9 @@ let status =
 
 html += `
 
+
 <tr>
+
 
 <td>
 ${data.studentName}
@@ -3750,31 +3944,41 @@ ${progress}
 </td>
 
 
-<td class="${status}">
-${status}
+<td class="${data.accuracy >= 80 ? 'pass' : 'fail'}">
+
+${data.accuracy}%
+
 </td>
 
-
 <td>
+
 ${
 data.updatedAt
 ?
-data.updatedAt.toDate().toLocaleDateString("en-GB")
+data.updatedAt.toDate().toLocaleDateString("en-GB",{
+    day:"2-digit",
+    month:"2-digit"
+})
 +
 "<br>"
 +
-data.updatedAt.toDate().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})
+data.updatedAt.toDate().toLocaleTimeString("en-GB",{
+    hour:"2-digit",
+    minute:"2-digit"
+})
 :
 "-"
 }
+
 </td>
+
 
 
 <td>
 
 <button 
 class="detail-btn"
-onclick="openDetail('${doc.id}')">
+onclick="openDetail('${data.id}')">
 
 📖
 
@@ -3783,10 +3987,11 @@ onclick="openDetail('${doc.id}')">
 </td>
 
 
+
 </tr>
 
-`;
 
+`;
 
 
 });
@@ -3800,6 +4005,8 @@ html += "</table>";
 document.getElementById(
 "resultTable"
 ).innerHTML = html;
+
+
 
 }
 
@@ -4288,10 +4495,6 @@ class="moon-logo">
 
 <div class="app-title">
 MOON TUITION CENTRE
-</div>
-
-<div class="app-subtitle">
-Brighter English, Brighter Future ❤️
 </div>
 
 </div>
