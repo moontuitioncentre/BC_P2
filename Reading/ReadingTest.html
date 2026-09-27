@@ -1976,7 +1976,10 @@ snapshot.forEach((doc)=>{
 
 let data = doc.data();
 
-if(data.status === "playing"){
+if(
+data.status === "playing" &&
+(Date.now() - data.lastActive < 60000)
+){
 
 players.push(data);
 
@@ -2075,7 +2078,9 @@ wrong:0,
 
 accuracy:0,
 
-status:"playing"
+status:"playing",
+
+lastActive: Date.now()
 
 }
 
@@ -2120,7 +2125,9 @@ wrong,
 
 accuracy,
 
-status:"playing"
+status:"playing",
+
+lastActive:Date.now()
 
 }
 
@@ -2751,6 +2758,12 @@ else{
             result:"correct"
 
         });
+
+
+    // 加这里
+    wrongWords = wrongWords.filter(
+        word => word !== words[current]
+    );
 
         document.body.className =
         "correct";
@@ -4174,7 +4187,6 @@ restart();
 
 }
 
-/*
 // =======================
 // Refresh保护
 // =======================
@@ -4195,7 +4207,6 @@ e.returnValue="";
 }
 
 });
-*/
 
 function loadStudents(){
 
