@@ -3136,15 +3136,25 @@ resultDiv.innerHTML =
 
         <div class="wrong-word">
 
-            ${
-                wrongWords.length > 0
-                ?
-                wrongWords.join(", ")
-                :
-                "-"
-            }
+${
+testedWordsToday.length > 0
+?
+Object.values(
+    testedWordsToday.reduce((obj,item)=>{
+        obj[item.word]=item;
+        return obj;
+    },{})
+)
+.map(item =>
+    item.word +
+    (item.result==="correct" ? " ✅" : " ❌")
+)
+.join("<br>")
+:
+"-"
+}
 
-        </div>
+</div>
 
     </div>
 
