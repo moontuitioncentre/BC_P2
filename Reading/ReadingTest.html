@@ -656,7 +656,7 @@ border:1px solid #ddd;
 
 padding:10px;
 
-font-size:9px;
+font-size:12px;
 
 }
 
@@ -666,6 +666,18 @@ font-size:9px;
 word-break:break-word;
 
 overflow-wrap:break-word;
+
+}
+
+
+/* 加这里 */
+.result-table td:first-child,
+.result-table th:first-child{
+
+    min-width:80px;
+    white-space:normal;
+    word-break:normal;
+    overflow-wrap:normal;
 
 }
 
@@ -3885,8 +3897,6 @@ let html = `
 
 <th>学生</th>
 
-<th>年级</th>
-
 <th>进度</th>
 
 <th>准确率</th>
@@ -3931,11 +3941,6 @@ html += `
 
 <td>
 ${data.studentName}
-</td>
-
-
-<td>
-${data.grade}
 </td>
 
 
