@@ -1974,17 +1974,16 @@ let players=[];
 
 snapshot.forEach((doc)=>{
 
-let data = doc.data();
+    let data = doc.data();
 
-if(data.status === "playing"){
-if(
-data.status === "playing" &&
-(Date.now() - data.lastActive < 60000)
-){
+    if(
+        data.status === "playing" &&
+        (Date.now() - data.lastActive < 60000)
+    ){
 
-players.push(data);
+        players.push(data);
 
-}
+    }
 
 });
 
@@ -2079,7 +2078,6 @@ wrong:0,
 
 accuracy:0,
 
-status:"playing"
 status:"playing",
 
 lastActive: Date.now()
@@ -2127,7 +2125,6 @@ wrong,
 
 accuracy,
 
-status:"playing"
 status:"playing",
 
 lastActive:Date.now()
@@ -4357,33 +4354,43 @@ data.testedWordsToday ||
 [];
 
 
+const wordStatus = {};
+
+
 todayWords.forEach(item=>{
 
+    wordStatus[item.word] = item.result;
 
-if(item.result==="correct"){
-
-
-list +=
-`
-<div class="detail-item">
-✅ ${item.word}
-</div>
-`;
+});
 
 
-}
-else{
+Object.keys(wordStatus).forEach(word=>{
 
 
-list +=
-`
-<div class="detail-item">
-❌ ${item.word}
-</div>
-`;
+    if(wordStatus[word]==="correct"){
 
 
-}
+        list +=
+        `
+        <div class="detail-item">
+        ✅ ${word}
+        </div>
+        `;
+
+
+    }
+    else{
+
+
+        list +=
+        `
+        <div class="detail-item">
+        ❌ ${word}
+        </div>
+        `;
+
+
+    }
 
 
 });
