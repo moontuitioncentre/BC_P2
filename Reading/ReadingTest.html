@@ -1483,29 +1483,57 @@ opacity: 0.85;
 position:fixed;
 
 top:15px;
-right:15px;
+left:50%;
 
-width:180px;
+transform:translateX(-50%);
+
+width:calc(100vw - 30px);
+max-width:600px;
+
+min-height:60px;
+max-height:140px;
 
 background:white;
 
 border-radius:15px;
 
-padding:15px;
+padding:10px;
 
-font-size:16px;
+font-size:13px;
 
 font-weight:bold;
 
-box-shadow:0 5px 15px rgba(0,0,0,0.2);
+box-shadow:0 5px 15px rgba(0,0,0,0.15);
 
 z-index:9999;
 
 text-align:center;
 
-line-height:1.6;
+line-height:1.5;
 
 display:none;
+
+overflow-y:auto;
+
+box-sizing:border-box;
+
+}
+
+.battle-player{
+
+display:inline-block;
+
+background:#f8fafc;
+
+border-radius:8px;
+
+padding:5px 8px;
+
+margin:3px;
+
+white-space:nowrap;
+
+font-size:13px;
 
 }
 
@@ -1514,9 +1542,31 @@ display:none;
 
 #battleRanking{
 
-width:150px;
+width:calc(100vw - 20px);
 
-font-size:14px;
+max-width:none;
+
+max-height:120px;
+
+padding:8px;
+
+font-size:12px;
+
+line-height:1.5;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.battle-player{
+
+font-size:11px;
+
+padding:4px 6px;
+
+margin:2px;
 
 }
 
@@ -1710,7 +1760,10 @@ onclick="confirmRestart()"
 
 </button>
 
-<button class="back-btn" onclick="window.location.href='../index.html'">
+<button
+    class="back-btn"
+    onclick="leaveBattleAndReturn()"
+>
 返回
 </button>
 
@@ -1958,133 +2011,221 @@ await loadProgress();
 
 function watchBattle(){
 
-
-window.onSnapshot(
-
-window.collection(
-window.db,
-"liveBattle"
-),
-
-(snapshot)=>{
+    let battlePlayers = {};
 
 
-let players=[];
+    function renderBattle(){
+
+        const now = Date.now();
 
 
-snapshot.forEach((doc)=>{
+        let players =
+            Object.values(battlePlayers)
+            .filter(player => {
 
-    let data = doc.data();
+                // 不是测试中的学生
+                if(player.status !== "playing"){
+                    return false;
+                }
 
-    if(
-        data.status === "playing" &&
-        (Date.now() - data.lastActive < 60000)
-    ){
 
-        players.push(data);
+                // 没有心跳资料
+                if(!player.lastActive){
+                    return false;
+                }
+
+
+                // 超过 10 秒没有心跳
+                // 就认为页面已经离开
+                if(
+                    now - player.lastActive
+                    > 10000
+                ){
+
+                    return false;
+
+                }
+
+
+                return true;
+
+            });
+
+
+        // 正确率高的排前面
+        players.sort(
+            (a,b) =>
+            b.accuracy - a.accuracy
+        );
+
+
+        let html = "";
+
+
+        players.forEach(
+            (player,index)=>{
+
+                let medal = "";
+
+
+                if(index === 0){
+                    medal = "🥇";
+                }
+                else if(index === 1){
+                    medal = "🥈";
+                }
+                else if(index === 2){
+                    medal = "🥉";
+                }
+
+
+                html += `
+
+                <span class="battle-player">
+
+                    ${medal}
+                    ${player.studentName}
+                    ${player.accuracy}%
+
+                </span>
+
+                `;
+
+            }
+        );
+
+
+        document.getElementById(
+            "battleRanking"
+        ).innerHTML = html;
 
     }
 
-});
+
+    // =========================
+    // Firebase 实时监听
+    // =========================
+
+    window.onSnapshot(
+
+        window.collection(
+            window.db,
+            "liveBattle"
+        ),
+
+        (snapshot)=>{
+
+            snapshot.forEach((doc)=>{
+
+                const data = doc.data();
+
+                battlePlayers[doc.id] = data;
+
+            });
 
 
-// 正确率高的排前面
+            renderBattle();
 
-players.sort(
-(a,b)=>
-b.accuracy-a.accuracy
-);
+        }
 
+    );
 
 
-let html =
-"";
+    // =========================
+    // 每1秒检查在线状态
+    // =========================
+
+    clearInterval(
+        window.battleDisplayTimer
+    );
 
 
+    window.battleDisplayTimer =
+        setInterval(()=>{
 
-players.forEach(
-(player,index)=>{
+            renderBattle();
 
-
-let medal="";
-
-if(index===0){
-medal="🥇";
-}
-
-else if(index===1){
-medal="🥈";
-}
-
-else if(index===2){
-medal="🥉";
-}
-
-else{
-medal="";
-}
-
-
-
-html +=
-
-`
-${medal}
-${player.studentName}
-
-<br>
-
-${player.accuracy}%
-
-<br><br>
-
-`;
-
-
-
-});
-
-
-document.getElementById(
-"battleRanking"
-).innerHTML = html;
-
-
-}
-
-);
-
+        },1000);
 
 }
 
 async function startBattle(){
 
-await window.setDoc(
+    await window.setDoc(
 
-window.doc(
-window.db,
-"liveBattle",
-currentStudentName
-),
+        window.doc(
+            window.db,
+            "liveBattle",
+            currentStudentName
+        ),
 
-{
+        {
 
-studentName:
-currentStudentName,
+            studentName:
+            currentStudentName,
 
-correct:0,
+            correct:0,
 
-wrong:0,
+            wrong:0,
 
-accuracy:0,
+            accuracy:0,
 
-status:"playing",
+            status:"playing",
 
-lastActive: Date.now()
+            lastActive:Date.now()
 
-}
+        }
 
-);
+    );
+
+
+    // =========================
+    // Reading Test 在线心跳
+    // =========================
+
+    clearInterval(window.battleHeartbeat);
+
+    window.battleHeartbeat = setInterval(async ()=>{
+
+        if(!currentStudentName){
+            return;
+        }
+
+        try{
+
+            await window.setDoc(
+
+                window.doc(
+                    window.db,
+                    "liveBattle",
+                    currentStudentName
+                ),
+
+                {
+
+                    status:"playing",
+
+                    lastActive:Date.now()
+
+                },
+
+                {
+                    merge:true
+                }
+
+            );
+
+        }
+        catch(error){
+
+            console.log(
+                "Battle heartbeat failed:",
+                error
+            );
+
+        }
+
+    },1000);
 
 }
 
@@ -2140,39 +2281,103 @@ lastActive:Date.now()
 // 离开页面自动退出 Battle
 // =======================
 
-window.addEventListener(
-"beforeunload",
-()=>{
+// =======================
+// 离开 Reading Test
+// =======================
 
+async function leaveBattle(){
 
-if(currentStudentName){
+    if(!currentStudentName){
+        return;
+    }
 
+    // 停止在线心跳
+    clearInterval(
+        window.battleHeartbeat
+    );
 
-window.setDoc(
+    try{
 
-window.doc(
-window.db,
-"liveBattle",
-currentStudentName
-),
+        await window.setDoc(
 
-{
+            window.doc(
+                window.db,
+                "liveBattle",
+                currentStudentName
+            ),
 
-status:"finished"
+            {
 
-},
+                status:"finished",
 
-{
-merge:true
+                lastActive:Date.now()
+
+            },
+
+            {
+
+                merge:true
+
+            }
+
+        );
+
+    }
+    catch(error){
+
+        console.log(
+            "Leave Battle failed:",
+            error
+        );
+
+    }
+
 }
 
+// =======================
+// 页面离开检测
+// =======================
+
+document.addEventListener(
+    "visibilitychange",
+    ()=>{
+
+        if(
+            document.visibilityState === "hidden"
+        ){
+
+            if(currentStudentName){
+
+                window.setDoc(
+
+                    window.doc(
+                        window.db,
+                        "liveBattle",
+                        currentStudentName
+                    ),
+
+                    {
+
+                        status:"finished",
+
+                        lastActive:Date.now()
+
+                    },
+
+                    {
+
+                        merge:true
+
+                    }
+
+                );
+
+            }
+
+        }
+
+    }
 );
-
-
-}
-
-
-});
 
 async function loadProgress(){
 
@@ -4865,6 +5070,15 @@ document.getElementById("testModeBox").style.display="none";
 // 开始测试
 
 startStudentSession();
+
+}
+
+async function leaveBattleAndReturn(){
+
+    await leaveBattle();
+
+    window.location.href =
+        "../index.html";
 
 }
 
