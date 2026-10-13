@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="ms">
 
 <head>
 
@@ -1607,15 +1607,14 @@ font-weight:bold;
 
 <select id="studentGrade" onchange="loadStudents()">
 
-<option value="">
-请选择年级
-</option>
-
-<option value="Year 1">
-Year 1
-</option>
-
-</select>
+<option value="">请选择年级</option>
+        <option value="Year 1">Year 1</option>
+        <option value="Year 2">Year 2</option>
+        <option value="Year 3">Year 3</option>
+	<option value="Year 4">Year 4</option>
+	<option value="Year 5">Year 5</option>
+	<option value="Year 6">Year 6</option>
+    </select>
 
 
 <br>
@@ -1829,21 +1828,277 @@ window.limit = limit;
 
 <script>
 
-const SUBJECT = "Chinese";
+const SUBJECT = "Malay";
 const TEST_TYPE = "Reading";
 
 // 第2部分 JavaScript 会接这里
 const originalWords = [
-"房子",
-"情况",
-"应用",
-"填写",
-"字母",
-"吹倒",
-"不会",
-"描绘",
-"用的",
-"一种"
+"dan",
+    "saya",
+    "alam sekitar",
+    "di",
+    "ke",
+    "yang",
+    "tong sampah",
+    "kitar semula",
+    "dalam",
+    "aktiviti",
+    "barang",
+    "itu",
+    "plastik",
+    "hari raya",
+    "untuk",
+    "boleh",
+    "dengan",
+    "murid",
+    "gembira",
+    "guru",
+    "kertas",
+    "nota",
+    "aku",
+    "beg",
+    "kita",
+    "kotak",
+    "menggunakan",
+    "tulis",
+    "akan",
+    "berasa",
+    "membeli",
+    "mereka",
+    "sekitar",
+    "ayat",
+    "datang",
+    "digunakan",
+    "ikan",
+    "membuang",
+    "pokok-pokok",
+    "sayur-sayuran",
+    "sungai",
+    "telah",
+    "air",
+    "atau",
+    "bersih",
+    "botol",
+    "elektrik",
+    "guna",
+    "hijau",
+    "karangan",
+    "mengisi",
+    "minuman",
+    "rumah",
+    "sangat",
+    "sebagai",
+    "betul",
+    "biru",
+    "dapat",
+    "ini",
+    "jawapan",
+    "kerana",
+    "maklumat",
+    "nilai",
+    "orang",
+    "sekeluarga",
+    "taman",
+    "tin",
+    "bekas",
+    "berdasarkan",
+    "bimbing",
+    "bunga",
+    "dikitar",
+    "encik",
+    "jingga",
+    "kemudian",
+    "kosong",
+    "majmuk",
+    "makan",
+    "makanan",
+    "menanam",
+    "menyelamatkan",
+    "minta",
+    "perut",
+    "puan",
+    "sekolah",
+    "terpakai",
+    "ada",
+    "arnab",
+    "baca",
+    "bentuk",
+    "buku",
+    "cantik",
+    "diberikan",
+    "empat",
+    "gambar",
+    "hendak",
+    "hidup",
+    "hutan",
+    "ibu",
+    "indah",
+    "intonasi",
+    "keluarga",
+    "kontekstual",
+    "lelaki",
+    "membaca",
+    "minggu",
+    "minum",
+    "pada",
+    "pembelajaran",
+    "penilaian",
+    "perlu",
+    "sebuah",
+    "sebutan",
+    "segar",
+    "segi",
+    "suka",
+    "tanaman",
+    "terjaga",
+    "tupai",
+    "abang",
+    "apa",
+    "badan",
+    "bahan",
+    "bendera",
+    "berwarna",
+    "bina",
+    "botol-botol",
+    "cerita",
+    "dari",
+    "dilihat",
+    "ditanam",
+    "dua",
+    "frasa",
+    "hingga",
+    "hujan",
+    "ialah",
+    "ingin",
+    "kata",
+    "kucing",
+    "kuning",
+    "malam",
+    "melengkapkan",
+    "memasukkan",
+    "mengadakan",
+    "mengasingkan",
+    "menggantikan",
+    "mengurangkan",
+    "mengutip",
+    "menjaga",
+    "menjimatkan",
+    "menulis",
+    "mesra",
+    "november",
+    "pantun",
+    "pembersihan",
+    "pentas",
+    "selamatkan",
+    "semua",
+    "sentiasa",
+    "seorang",
+    "sihat",
+    "subur",
+    "sumber",
+    "supaya",
+    "tanpa",
+    "tentang",
+    "terbuang",
+    "tetamu",
+    "tinggal",
+    "unit",
+    "agar",
+    "aidilfitri",
+    "aluminium",
+    "atas",
+    "baik",
+    "bakul",
+    "baldi",
+    "bandar",
+    "banyak",
+    "belajar",
+    "bercucuk",
+    "beriadah",
+    "beritahu",
+    "bermain",
+    "bersama",
+    "bersihkan",
+    "buah-buahan",
+    "buang",
+    "coklat",
+    "daun",
+    "dia",
+    "diadakan",
+    "dipetik",
+    "disimpan",
+    "ditebang",
+    "fahami",
+    "gemilang",
+    "gitar",
+    "halaman",
+    "hijaukan",
+    "jalur",
+    "jimatkan",
+    "jus",
+    "kamu",
+    "kawan",
+    "kawasan",
+    "kereta",
+    "ketupat",
+    "kuih",
+    "lantai",
+    "lebih",
+    "lemang",
+    "lengkapkan",
+    "mahu",
+    "mari",
+    "masa",
+    "melayan",
+    "memandu",
+    "membawa",
+    "membina",
+    "membuat",
+    "mempelam",
+    "menangis",
+    "mencari",
+    "mencuci",
+    "menghargai",
+    "mengibarkan",
+    "menonton",
+    "menyampaikan",
+    "menyanyi",
+    "menyiram",
+    "nyaman",
+    "oren",
+    "padankan",
+    "pagi",
+    "paip",
+    "panas",
+    "pekerja",
+    "pemuda",
+    "perkataan",
+    "petikan",
+    "pinggan",
+    "racun",
+    "rajah",
+    "rajin",
+    "rak",
+    "rendang",
+    "sayang",
+    "sedang",
+    "seperti",
+    "serangga",
+    "sesuai",
+    "situasi",
+    "suatu",
+    "suis",
+    "susu",
+    "susun",
+    "tanam",
+    "teks",
+    "tekun",
+    "tempat",
+    "tengah",
+    "tepi",
+    "terkandung",
+    "tidak",
+    "warna"
 ];
 
 const students = {
@@ -1856,21 +2111,327 @@ const students = {
 "Candy",
 "Shannon",
 "Jayden Liew"
+],
+
+"Year 2":[
+"Laynarose",
+        "Ong Zhi Cong",
+        "Madihah",
+	"Alston"
+],
+
+"Year 3":[
+"Gracelyn",
+        "Eyrina",
+        "Averlyn",
+	"Adrieal",
+	"Ryan Chin",
+	"Renee"
+],
+
+"Year 4":[
+"王紫萱",
+        "Hilary",
+        "Ernest",
+	"Joanna",
+	"Shannie",
+	"Gavriil",
+	"Abigail", 		
+"Amira",
+"Jayden Lai",
+"Manfred",
+"Alinnah",
+"Megan",
+"Medina",
+"Adison",
+"Raphael"
+],
+
+"Year 5":[
+"Jovana",
+        "Anson",
+        "Althea",
+	"Muqri",
+	"Richie",
+	"Corey",
+	"Keefe",
+"Quenice"
+],
+
+"Year 6":[
+"Rowell",
+"张嘉欣"
 ]
 
 };
 
 const phrases = [
-"房子",
-"情况",
-"应用",
-"填写",
-"字母",
-"吹倒",
-"不会",
-"描绘",
-"用的",
-"一种"   
+"dan saya",
+"saya suka",
+"jaga alam sekitar",
+"di sekolah",
+"ke taman",
+"yang cantik",
+"dalam tong sampah",
+"kitar semula botol",
+"dalam kotak",
+"aktiviti sekolah",
+"barang terpakai",
+"itu buku",
+"beg plastik",
+"hari raya aidilfitri",
+"untuk murid",
+"boleh guna",
+"dengan guru",
+"murid sekolah",
+"berasa gembira",
+"guru saya",
+"kertas terpakai",
+"nota penting",
+"aku suka",
+"beg biru",
+"kita jaga",
+"kotak kosong",
+"menggunakan kertas",
+"tulis ayat",
+"akan datang",
+"berasa sihat",
+"membeli buku",
+"mereka belajar",
+"sekitar sekolah",
+"ayat mudah",
+"datang ke sekolah",
+"digunakan semula",
+"ikan sungai",
+"membuang sampah",
+"pokok-pokok hijau",
+"sayur-sayuran segar",
+"sungai bersih",
+"telah dibuang",
+"air bersih",
+"ini atau itu",
+"kawasan bersih",
+"botol kosong",
+"jimat elektrik",
+"guna semula",
+"warna hijau",
+"karangan pendek",
+"mengisi air",
+"minuman segar",
+"rumah saya",
+"sangat cantik",
+"sebagai murid",
+"jawapan betul",
+"warna biru",
+"dapat membaca",
+"ini buku",
+"jawapan betul",
+"kerana bersih",
+"maklumat penting",
+"nilai murni",
+"orang ramai",
+"sekeluarga gembira",
+"taman indah",
+"tin kosong",
+"bekas plastik",
+"berdasarkan gambar",
+"bimbing murid",
+"bunga cantik",
+"dikitar semula",
+"encik guru",
+"warna jingga",
+"kemudian baca",
+"botol kosong",
+"ayat majmuk",
+"makan bersama",
+"makanan sihat",
+"menanam pokok",
+"menyelamatkan alam",
+"minta bimbing",
+"perut kosong",
+"puan guru",
+"sekolah saya",
+"barang terpakai",
+"ada buku",
+"arnab comel",
+"baca buku",
+"bentuk kotak",
+"buku cerita",
+"bunga cantik",
+"diberikan nota",
+"empat murid",
+"gambar rajah",
+"hendak belajar",
+"hidup sihat",
+"hutan hijau",
+"ibu saya",
+"taman indah",
+"intonasi betul",
+"keluarga saya",
+"pembelajaran kontekstual",
+"murid lelaki",
+"membaca ayat",
+"minggu ini",
+"minum air",
+"pada pagi",
+"pembelajaran murid",
+"penilaian guru",
+"perlu belajar",
+"sebuah sekolah",
+"sebutan jelas",
+"sayur segar",
+"segi tiga",
+"suka membaca",
+"tanaman hijau",
+"alam terjaga",
+"tupai comel",
+"abang saya",
+"apa ini",
+"badan sihat",
+"bahan terpakai",
+"bendera Malaysia",
+"berwarna hijau",
+"bina ayat",
+"botol-botol kosong",
+"cerita pendek",
+"dari sekolah",
+"dilihat guru",
+"ditanam pokok",
+"dua botol",
+"frasa mudah",
+"hingga petang",
+"hujan lebat",
+"ini ialah buku",
+"ingin belajar",
+"kata nama",
+"kucing comel",
+"bunga kuning",
+"malam ini",
+"melengkapkan ayat",
+"memasukkan air",
+"mengadakan aktiviti",
+"mengasingkan barang",
+"menggantikan buku",
+"mengurangkan sampah",
+"mengutip sampah",
+"menjaga alam",
+"menjimatkan air",
+"menulis nota",
+"mesra alam",
+"bulan november",
+"pantun lama",
+"aktiviti pembersihan",
+"pentas sekolah",
+"selamatkan sungai",
+"semua murid",
+"sentiasa bersih",
+"seorang guru",
+"hidup sihat",
+"pokok subur",
+"sumber air",
+"supaya bersih",
+"tanpa sampah",
+"tentang alam",
+"barang terbuang",
+"tetamu datang",
+"tinggal di rumah",
+"unit buku",
+"agar bersih",
+"hari raya aidilfitri",
+"tin aluminium",
+"atas meja",
+"baik hati",
+"bakul sampah",
+"baldi air",
+"bandar bersih",
+"banyak buku",
+"belajar rajin",
+"bercucuk tanam",
+"beriadah bersama",
+"beritahu guru",
+"bermain di taman",
+"bersama keluarga",
+"bersihkan kawasan",
+"buah-buahan segar",
+"buang sampah",
+"warna coklat",
+"daun hijau",
+"dia membaca",
+"diadakan aktiviti",
+"dipetik bunga",
+"disimpan dalam kotak",
+"ditebang pokok",
+"fahami ayat",
+"sekolah gemilang",
+"main gitar",
+"halaman rumah",
+"hijaukan sekolah",
+"jalur gemilang",
+"jimatkan elektrik",
+"jus oren",
+"kamu baca",
+"kawan saya",
+"kawasan bersih",
+"kereta biru",
+"makan ketupat",
+"kuih raya",
+"lantai bersih",
+"lebih baik",
+"makan lemang",
+"lengkapkan ayat",
+"mahu belajar",
+"mari baca",
+"masa lapang",
+"melayan tetamu",
+"memandu kereta",
+"membawa beg",
+"membina ayat",
+"membuat nota",
+"buah mempelam",
+"adik menangis",
+"mencari buku",
+"mencuci tangan",
+"menghargai guru",
+"mengibarkan bendera",
+"menonton cerita",
+"menyampaikan maklumat",
+"menyanyi bersama",
+"menyiram bunga",
+"udara nyaman",
+"warna oren",
+"padankan jawapan",
+"pagi ini",
+"paip air",
+"hari panas",
+"pekerja sekolah",
+"pemuda rajin",
+"perkataan mudah",
+"petikan cerita",
+"pinggan bersih",
+"racun serangga",
+"rajah pokok",
+"murid rajin",
+"rak buku",
+"makan rendang",
+"sayang alam",
+"sedang membaca",
+"seperti biasa",
+"serangga kecil",
+"sesuai digunakan",
+"situasi sekolah",
+"suatu hari",
+"suis elektrik",
+"minum susu",
+"susun buku",
+"tanam bunga",
+"teks pendek",
+"belajar tekun",
+"tempat duduk",
+"tengah rumah",
+"tepi sungai",
+"terkandung maklumat",
+"tidak buang sampah",
+"warna hijau"   
 ];
 
 let words = [];
@@ -1916,7 +2477,7 @@ let currentStudentName = "";
 
 let currentStudentGrade = "";
 
-let currentTestName = "BC_P1_Reading_Set 1";
+let currentTestName = "BM_P1_Reading_Set 1";
 
 function getTestID(){
 
@@ -2541,7 +3102,7 @@ return;
 
 recognition = new SpeechRecognition();
 
-recognition.lang="zh-CN";
+recognition.lang="ms-MY";
 
 recognition.continuous=true;
 
@@ -2797,248 +3358,139 @@ showResult();
 // =======================
 
 
-function checkAnswer(text){
 
-if(isChecking){
-return;
+function checkAnswer(text) {
+    if (isChecking) {
+        return;
+    }
+
+    isChecking = true;
+
+    if (!words[current]) {
+        isChecking = false;
+        return;
+    }
+
+    // 标准化马来文：统一大小写、标点和空格
+    function normalizeMalay(value) {
+        return String(value || "")
+            .toLowerCase()
+            .replace(/[.,!?;:"“”‘’()[\]{}]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    const answer = normalizeMalay(words[current]);
+    const cleanText = normalizeMalay(text);
+
+    console.log("学生读出的内容:", cleanText);
+    console.log("目标词汇:", answer);
+
+    // 没有识别到语音，不直接判对
+    if (!cleanText || !answer) {
+        isChecking = false;
+        resultDiv.innerHTML = "❌ 没有听清楚，请再试一次";
+        return;
+    }
+
+    let similarity = 0;
+
+    // 优先检查完整词汇是否出现在识别结果中
+    // 例如目标是 rumah，识别结果是 "ini rumah saya"
+    const recognizedWords = cleanText.split(" ");
+
+    if (recognizedWords.includes(answer)) {
+        similarity = 1;
+    } else {
+        // 如果没有完全匹配，再比较相似发音
+        // 只比较识别结果中的单个词，避免整句话影响分数
+        for (const spokenWord of recognizedWords) {
+            if (!spokenWord) continue;
+
+            const maxLength = Math.max(
+                answer.length,
+                spokenWord.length
+            );
+
+            if (maxLength === 0) continue;
+
+            const distance = levenshtein(answer, spokenWord);
+
+            const wordSimilarity =
+                1 - distance / maxLength;
+
+            if (wordSimilarity > similarity) {
+                similarity = wordSimilarity;
+            }
+        }
+    }
+
+    // 判断标准：完整匹配优先；
+    // 相似度容错只用于较长词汇，避免短词误判
+    let threshold;
+
+    if (answer.length <= 3) {
+        threshold = 0.90;
+    } else {
+        threshold = 0.80;
+    }
+
+    console.log("相似度:", similarity);
+    console.log("判断标准:", threshold);
+
+    if (similarity >= threshold) {
+        // ===== 答对 =====
+        stopListening();
+        isChecking = false;
+
+        correct++;
+
+        updateBattleFirebase();
+
+        testedWordsToday.push({
+            word: words[current],
+            result: "correct"
+        });
+
+        // 从不会读的词汇列表移除
+        wrongWords = wrongWords.filter(
+            word => word !== words[current]
+        );
+
+        document.body.className = "correct";
+        resultDiv.innerHTML = "✅ 正确！";
+
+        setTimeout(() => {
+            current++;
+
+            if (current < words.length) {
+                showWord();
+            } else {
+                showResult();
+            }
+        }, 800);
+
+    } else {
+        // ===== 答错：允许学生重读 =====
+        isChecking = false;
+
+        const currentWord = words[current];
+
+        const exist = testedWordsToday.find(
+            item => item.word === currentWord
+        );
+
+        if (!exist) {
+            testedWordsToday.push({
+                word: currentWord,
+                result: "wrong"
+            });
+        }
+
+        document.body.className = "incorrect";
+        resultDiv.innerHTML = "❌ 再试一次";
+    }
 }
-
-isChecking = true;
-
-if(!words[current]){
-isChecking = false;
-return;
-}
-
-const answer = normalizeChinese(words[current]);
-
-const cleanText = normalizeChinese(text);
-
-
-// =======================
-// 棱柱体 / 棱锥体 语音识别修正
-// =======================
-
-const specialFix = {
-
-"冷柱体":"棱柱体",
-"人柱体":"棱柱体",
-"能柱体":"棱柱体",
-
-"冷锥体":"棱锥体",
-"人锥体":"棱锥体",
-"能锥体":"棱锥体",
-
-"只是":"指示",
-
-"栗子":"例子",
-"粒子":"例子",
-"荔枝":"例子",
-
-"想像":"想象",
-
-"热漆":"日期"
-
-};
-
-
-let fixedText = cleanText;
-
-for(let wrong in specialFix){
-
-if(cleanText.includes(wrong)){
-
-fixedText = specialFix[wrong];
-break;
-
-}
-
-}
-
-
-console.log(
-"学生:",
-cleanText,
-"答案:",
-answer
-);
-
-
-let similarity;
-
-
-// ⭐ 只要学生读出的内容包含题目，就算正确
-if(cleanText.includes(answer)){
-
-similarity = 1;
-
-}
-
-
-// ⭐ 有什么 / 由什么 互相接受
-else if(
-(answer === "有什么" && fixedText === "由什么") ||
-(answer === "由什么" && fixedText === "有什么")
-){
-
-similarity = 1;
-
-}
-
-
-// ⭐ 特别处理：棱柱体 / 棱锥体
-else if(answer === "棱柱体" && fixedText.includes("柱体")){
-
-similarity = 1;
-
-}
-
-else if(answer === "棱锥体" && fixedText.includes("锥体")){
-
-similarity = 1;
-
-}
-
-
-// ⭐ 原本单字规则
-else if(answer.length === 1 && cleanText.includes(answer)){
-
-similarity = 1;
-
-}
-
-else{
-
-similarity = chineseSimilarity(
-fixedText,
-answer
-);
-
-}
-
-console.log(
-"中文相似度:",
-similarity
-);
-
-// 中文判断标准
-let threshold = 0.75;
-
-// 如果是非常短的单字
-if(answer.length === 1){
-
-threshold = 0.7;
-
-}
-
-// 两个字的词
-else if(answer.length === 2){
-
-threshold = 0.75;
-
-}
-
-// 三个或以上
-else{
-
-threshold = 0.70;
-
-}
-
-
-if(similarity >= threshold){
-
-stopListening();
-
-isChecking = false;
-
-correct++;
-
-updateBattleFirebase();
-
-testedWordsToday.push({
-
-word: words[current],
-
-result:"correct"
-
-});
-
-
-    // 加这里
-    wrongWords = wrongWords.filter(
-        word => word !== words[current]
-    );
-
-document.body.className =
-"correct";
-
-resultDiv.innerHTML =
-"✅ 正确！";
-
-
-setTimeout(()=>{
-
-current++;
-
-if(current < words.length){
-
-showWord();
-
-}
-
-else{
-
-showResult();
-
-}
-
-},800);
-
-
-}
-
-else{
-
-isChecking = false;
-
-const currentWord =
-words[current];
-
-
-const exist =
-testedWordsToday.find(
-x => x.word === currentWord
-);
-
-
-if(!exist){
-
-testedWordsToday.push({
-
-word: currentWord,
-
-result:"wrong"
-
-});
-
-}
-
-document.body.className =
-"incorrect";
-
-
-resultDiv.innerHTML =
-"❌ 再试一次";
-
-}
-
-}
-
-
-
-
-
 
 // =======================
 // 过滤重复
