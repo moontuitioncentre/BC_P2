@@ -1607,14 +1607,15 @@ font-weight:bold;
 
 <select id="studentGrade" onchange="loadStudents()">
 
-<option value="">请选择年级</option>
-        <option value="Year 1">Year 1</option>
-        <option value="Year 2">Year 2</option>
-        <option value="Year 3">Year 3</option>
-	<option value="Year 4">Year 4</option>
-	<option value="Year 5">Year 5</option>
-	<option value="Year 6">Year 6</option>
-    </select>
+<option value="">
+请选择年级
+</option>
+
+<option value="Year 1">
+Year 1
+</option>
+
+</select>
 
 
 <br>
@@ -1833,7 +1834,7 @@ const TEST_TYPE = "Reading";
 
 // 第2部分 JavaScript 会接这里
 const originalWords = [
-"dan",
+    "dan",
     "saya",
     "alam sekitar",
     "di",
@@ -1945,56 +1946,6 @@ const students = {
 "Candy",
 "Shannon",
 "Jayden Liew"
-],
-
-"Year 2":[
-"Laynarose",
-        "Ong Zhi Cong",
-        "Madihah",
-	"Alston"
-],
-
-"Year 3":[
-"Gracelyn",
-        "Eyrina",
-        "Averlyn",
-	"Adrieal",
-	"Ryan Chin",
-	"Renee"
-],
-
-"Year 4":[
-"王紫萱",
-        "Hilary",
-        "Ernest",
-	"Joanna",
-	"Shannie",
-	"Gavriil",
-	"Abigail", 		
-"Amira",
-"Jayden Lai",
-"Manfred",
-"Alinnah",
-"Megan",
-"Medina",
-"Adison",
-"Raphael"
-],
-
-"Year 5":[
-"Jovana",
-        "Anson",
-        "Althea",
-	"Muqri",
-	"Richie",
-	"Corey",
-	"Keefe",
-"Quenice"
-],
-
-"Year 6":[
-"Rowell",
-"张嘉欣"
 ]
 
 };
@@ -2065,7 +2016,7 @@ const phrases = [
 "nilai murni",
 "orang ramai",
 "sekeluarga gembira",
-"taman indah"   
+"taman indah" 
 ];
 
 let words = [];
@@ -3027,28 +2978,59 @@ function checkAnswer(text) {
         return;
     }
 
+    
+    // ===== 马来文宽松发音判断 =====
+
+    const targetCompact = answer.replace(/\s+/g, "");
+    const spokenTokens = cleanText.split(/\s+/).filter(Boolean);
+    const targetTokenCount = answer.split(/\s+/).length;
+
     let similarity = 0;
 
-    // 优先检查完整词汇是否出现在识别结果中
-    // 例如目标是 rumah，识别结果是 "ini rumah saya"
-    const recognizedWords = cleanText.split(" ");
-
-    if (recognizedWords.includes(answer)) {
+    // 忽略空格，例如：
+    // dikitar 和 di kitar 可以视为相同
+    // alam sekitar 和 alamsekitar 可以视为相同
+    if (
+        targetCompact.length >= 5 &&
+        spokenTokens.join("").includes(targetCompact)
+    ) {
         similarity = 1;
-    } else {
-        // 如果没有完全匹配，再比较相似发音
-        // 只比较识别结果中的单个词，避免整句话影响分数
-        for (const spokenWord of recognizedWords) {
-            if (!spokenWord) continue;
+    }
+
+    // 比较连续词组，允许 Chrome 把一个词拆成两个词
+    // 或把两个词识别成相近的连续词
+    for (
+        let start = 0;
+        start < spokenTokens.length;
+        start++
+    ) {
+        for (
+            let count = Math.max(1, targetTokenCount - 1);
+            count <= targetTokenCount + 1;
+            count++
+        ) {
+            if (start + count > spokenTokens.length) {
+                continue;
+            }
+
+            const spokenCandidate = spokenTokens
+                .slice(start, start + count)
+                .join("")
+                .replace(/[^a-z]/g, "");
+
+            if (!spokenCandidate) {
+                continue;
+            }
 
             const maxLength = Math.max(
-                answer.length,
-                spokenWord.length
+                targetCompact.length,
+                spokenCandidate.length
             );
 
-            if (maxLength === 0) continue;
-
-            const distance = levenshtein(answer, spokenWord);
+            const distance = levenshtein(
+                targetCompact,
+                spokenCandidate
+            );
 
             const wordSimilarity =
                 1 - distance / maxLength;
@@ -3059,18 +3041,22 @@ function checkAnswer(text) {
         }
     }
 
-    // 判断标准：完整匹配优先；
-    // 相似度容错只用于较长词汇，避免短词误判
+    // 更宽松的判断标准
     let threshold;
 
-    if (answer.length <= 3) {
+    if (targetCompact.length <= 3) {
         threshold = 0.90;
+    } else if (targetCompact.length <= 7) {
+        threshold = 0.72;
     } else {
-        threshold = 0.80;
+        threshold = 0.70;
     }
 
+    console.log("学生识别结果:", cleanText);
+    console.log("目标词汇:", answer);
     console.log("相似度:", similarity);
     console.log("判断标准:", threshold);
+
 
     if (similarity >= threshold) {
         // ===== 答对 =====
