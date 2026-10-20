@@ -1607,15 +1607,14 @@ font-weight:bold;
 
 <select id="studentGrade" onchange="loadStudents()">
 
-<option value="">
-请选择年级
-</option>
-
-<option value="Year 1">
-Year 1
-</option>
-
-</select>
+<option value="">请选择年级</option>
+        <option value="Year 1">Year 1</option>
+        <option value="Year 2">Year 2</option>
+        <option value="Year 3">Year 3</option>
+	<option value="Year 4">Year 4</option>
+	<option value="Year 5">Year 5</option>
+	<option value="Year 6">Year 6</option>
+    </select>
 
 
 <br>
@@ -1834,11 +1833,106 @@ const TEST_TYPE = "Reading";
 
 // 第2部分 JavaScript 会接这里
 const originalWords = [
+    "dan",
+    "saya",
+    "alam sekitar",
+    "di",
+    "ke",
+    "yang",
     "tong sampah",
     "kitar semula",
     "dalam",
     "aktiviti",
-    "barang"
+    "barang",
+    "itu",
+    "plastik",
+    "hari raya",
+    "untuk",
+    "boleh",
+    "dengan",
+    "murid",
+    "gembira",
+    "guru",
+    "kertas",
+    "nota",
+    "aku",
+    "beg",
+    "kita",
+    "kotak",
+    "menggunakan",
+    "tulis",
+    "akan",
+    "berasa",
+    "membeli",
+    "mereka",
+    "sekitar",
+    "ayat",
+    "datang",
+    "digunakan",
+    "ikan",
+    "membuang",
+    "pokok-pokok",
+    "sayur-sayuran",
+    "sungai",
+    "telah",
+    "air",
+    "atau",
+    "bersih",
+    "botol",
+    "elektrik",
+    "guna",
+    "hijau",
+    "karangan",
+    "mengisi",
+    "minuman",
+    "rumah",
+    "sangat",
+    "sebagai",
+    "betul",
+    "biru",
+    "dapat",
+    "ini",
+    "jawapan",
+    "kerana",
+    "maklumat",
+    "nilai",
+    "orang",
+    "sekeluarga",
+    "taman",
+    "tin",
+    "bekas",
+    "berdasarkan",
+    "bimbing",
+    "bunga",
+    "dikitar",
+    "encik",
+    "jingga",
+    "kemudian",
+    "kosong",
+    "majmuk",
+    "makan",
+    "makanan",
+    "menanam",
+    "menyelamatkan",
+    "minta",
+    "perut",
+    "puan",
+    "sekolah",
+    "terpakai",
+    "ada",
+    "arnab",
+    "baca",
+    "bentuk",
+    "buku",
+    "cantik",
+    "diberikan",
+    "empat",
+    "gambar",
+    "hendak",
+    "hidup",
+    "hutan",
+    "ibu",
+    "indah"
 ];
 
 const students = {
@@ -1851,16 +1945,161 @@ const students = {
 "Candy",
 "Shannon",
 "Jayden Liew"
+],
+
+"Year 2":[
+"Laynarose",
+        "Ong Zhi Cong",
+        "Madihah",
+	"Alston"
+],
+
+"Year 3":[
+"Gracelyn",
+        "Eyrina",
+        "Averlyn",
+	"Adrieal",
+	"Ryan Chin",
+	"Renee"
+],
+
+"Year 4":[
+"王紫萱",
+        "Hilary",
+        "Ernest",
+	"Joanna",
+	"Shannie",
+	"Gavriil",
+	"Abigail", 		
+"Amira",
+"Jayden Lai",
+"Manfred",
+"Alinnah",
+"Megan",
+"Medina",
+"Adison",
+"Raphael"
+],
+
+"Year 5":[
+"Jovana",
+        "Anson",
+        "Althea",
+	"Muqri",
+	"Richie",
+	"Corey",
+	"Keefe",
+"Quenice"
+],
+
+"Year 6":[
+"Rowell",
+"张嘉欣"
 ]
 
 };
 
 const phrases = [
-"dalam tong sampah",
-"kitar semula botol",
-"dalam kotak",
-"aktiviti sekolah",
-"barang terpakai" 
+"dan lain-lain",
+  "saya suka",
+  "jaga alam sekitar",
+  "di rumah",
+  "ke sekolah",
+  "yang cantik",
+  "tong sampah besar",
+  "kitar semula barang",
+  "dalam kotak",
+  "aktiviti sekolah",
+  "barang terpakai",
+  "itu buku",
+  "beg plastik",
+  "hari raya aidilfitri",
+  "untuk murid",
+  "boleh guna",
+  "dengan guru",
+  "murid sekolah",
+  "rasa gembira",
+  "guru kelas",
+  "kertas terpakai",
+  "nota kecil",
+  "aku suka",
+  "beg plastik",
+  "kita jaga",
+  "kotak kosong",
+  "menggunakan botol",
+  "tulis nota",
+  "akan datang",
+  "berasa gembira",
+  "membeli makanan",
+  "mereka gembira",
+  "sekitar sekolah",
+  "ayat mudah",
+  "datang awal",
+  "digunakan semula",
+  "ikan sungai",
+  "membuang sampah",
+  "pokok-pokok hijau",
+  "sayur-sayuran segar",
+  "sungai bersih",
+  "telah dibuang",
+  "air bersih",
+  "ini atau itu",
+  "alam bersih",
+  "botol plastik",
+  "jimat elektrik",
+  "guna semula",
+  "warna hijau",
+  "karangan mudah",
+  "mengisi air",
+  "minuman sejuk",
+  "rumah saya",
+  "sangat cantik",
+  "sebagai guru",
+  "jawapan betul",
+  "beg biru",
+  "dapat belajar",
+  "ini kotak",
+  "jawapan betul",
+  "kerana bersih",
+  "maklumat mudah",
+  "nilai murni",
+  "orang ramai",
+  "pergi sekeluarga",
+  "taman bunga",
+  "tin kosong",
+  "bekas plastik",
+  "berdasarkan gambar",
+  "bimbing murid",
+  "bunga cantik",
+  "dikitar semula",
+  "encik guru",
+  "warna jingga",
+  "kemudian buang",
+  "botol kosong",
+  "ayat majmuk",
+  "makan bersama",
+  "makanan sihat",
+  "menanam pokok",
+  "menyelamatkan alam",
+  "minta tolong",
+  "perut kenyang",
+  "puan guru",
+  "sekolah saya",
+  "barang terpakai",
+  "ada kotak",
+  "arnab comel",
+  "baca buku",
+  "bentuk kotak",
+  "buku nota",
+  "bunga cantik",
+  "diberikan nota",
+  "empat botol",
+  "gambar pokok",
+  "hendak pergi",
+  "hidup sihat",
+  "hutan hijau",
+  "ibu saya",
+  "alam indah" 
 ];
 
 let words = [];
